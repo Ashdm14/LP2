@@ -1,0 +1,78 @@
+knowledge_base = {'employee_data' : {}}
+
+def add_employee_data():
+    employee_id = input("Enter employee id : ")
+    employee_data = knowledge_base['employee_data'].get(employee_id)
+    
+    if employee_data:
+        print(f'Employee with ID {employee_id} already exists')
+        return
+    
+    quality_of_work = input("Enter quality of work rating (1-10) : ")
+    quantity_of_work = input("Enter quantity of work rating (1-10) : ")
+    communication = input("Enter communication rating (1-10) : ")
+    team_work = input("Enter team_work rating (1-10) : ")
+    initiative = input("Enter initiative rating (1-10) : ")
+    
+    employee_data = {
+        'quality_of_work' : quality_of_work,
+        'quantity_of_work' : quantity_of_work,
+        'communication' : communication,
+        'team_work' : team_work,
+        'initiative' : initiative
+    }
+    
+    knowledge_base['employee_data'][employee_id] = employee_data;
+    print(f'Employee data added successfully for ID {employee_id}')
+    
+def view_employee_data():
+    employee_id = input("Enter employee id : ")
+    employee_data = knowledge_base['employee_data'].get(employee_id)
+    
+    if not employee_data:
+        print(f'Could not find employee with ID {employee_id}')
+        return
+    
+    print(f'Employee data for ID {employee_id}')
+    for criteria,score in employee_data.items():
+        print(f'{criteria} : {score}')
+
+def modify_employee_data():
+    employee_id = input("Enter employee id : ")
+    employee_data = knowledge_base['employee_data'].get(employee_id)
+    
+    if not employee_data:
+        print(f'Could not find employee with ID {employee_id}')
+        return
+    
+    print(f'Current employee data for ID {employee_id} : ')
+    for criteria,score in employee_data.items():
+        print(f'{criteria} : {score}')
+        
+    criteria = input("Enter the criteria to modify : ")
+    score = input("Enter new rating (1-10) : ")
+    
+    if criteria not in employee_data:
+        print(f'Could not found {criteria} for employee id {employee_id}')
+        return
+    
+    employee_data[criteria] = score
+    print(f'{criteria} score updated to {score} for employee id {employee_id}')
+
+while(True):
+    print("\n1. Add Employee data")
+    print("2. View Employee data")
+    print("3. Modify employee data")
+    print("4. Exit")
+    choice = input("Enter your choice : ")
+    
+    if(choice == '1'):
+        add_employee_data()
+    elif(choice == '2'):
+        view_employee_data()
+    elif(choice == '3'):
+        modify_employee_data()
+    elif(choice == '4'):
+        break
+    else:
+        print("Wrong Choice")

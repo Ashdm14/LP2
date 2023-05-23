@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Edge {
+    int src;
+    int dest;
+    int weight;
+};
+
+bool compareEdges(const Edge& a, const Edge& b) {
+    return a.weight < b.weight;
+}
+
+int findParent(int v, vector<int>& parent) {
+    if (parent[v] == v)
+        return v;
+    return findParent(parent[v], parent);
+}
+
+void kruskalsAlgorithm(vector<Edge>& edges, int numVertices) {
+    vector<Edge> mst;
+    vector<int> parent(numVertices);
+    
+    for (int i = 0; i < numVertices; i++) {
+        parent[i] = i;
+    }
+    
+    sort(edges.begin(), edges.end(), compareEdges);
+    
+    int edgeCount = 0;
+    int index = 0;
+    while (edgeCount < numVertices - 1 && index < edges.size()) {
+        Edge currentEdge = edges[index];
+        
+        int srcParent = findParent(currentEdge.src, parent);
+        int destParent = findParent(currentEdge.dest, parent);
+        
+        if (srcParent != destParent) {
+            mst.push_back(currentEdge);
+            edgeCount++;
+            parent[srcParent] = destParent;
+        }
+        
+        index++;
+    }
+    
+    cout << "Minimum Spanning Tree (MST) edges:" << endl;
+    for (const auto& edge : mst) {
+        cout << edge.src << " -- " << edge.dest << " : " << edge.weight << endl;
+    }
+}
+
+int main() {
+    int numVertices, numEdges;
+    cout << "Enter the number of vertices: ";
+    cin >> numVertices;
+    cout << "Enter the number of edges: ";
+    cin >> numEdges;
+    
+    vector<Edge> edges(numEdges);
+    cout << "Enter the edges in the format (source destination weight):" << endl;
+    for (int i = 0; i < numEdges; i++) {
+        cin >> edges[i].src >> edges[i].dest >> edges[i].weight;
+    }
+    
+    kruskalsAlgorithm(edges, numVertices);
+    
+    return 0;
+}

@@ -1,0 +1,48 @@
+https://youtu.be/ab1XMJQ10Q8
+
+Method 1:
+1. Owncloud installation:
+
+commands:
+php -v
+wget https://raw.githubusercontent.com/linuxsyr/owncloud/main/owncloud.bash
+ls
+chmod +x owncloud.bash
+sudo bash ./owncloud.bash
+
+in new terminal
+cat owncloud.bash
+
+Method 2:
+---------------------------------------------------------------------------------------
+Simplylearn docker installation:
+https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
+
+Owncloud Installation:
+https://doc.owncloud.com/server/next/admin_manual/installation/docker/#introduction
+----------------------------------------------------------------------------------------
+
+Google cloud cli/sdk:
+https://cloud.google.com/sdk/docs/install#linux
+
+
+-----------------------------------------------------------------------------------------
+Apec code:
+public class Demo1 {
+    
+    public void msg(){
+        Account acc = new Account();
+    	acc.Name = 'Dnyanesh';
+    	acc.Phone = '7757801496';
+        System.debug('Hi'+acc);
+    }
+    public void temp(Decimal cel){
+        Decimal faren = ((cel*9)/5)+32;
+        System.debug('faren = '+faren);
+    }
+}
+
+Execute:
+Demo1 d1 = new Demo1();
+d1.temp(13);
+d1.msg();

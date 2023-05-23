@@ -1,0 +1,40 @@
+def prim(graph, start):
+    mst = []  # minimum spanning tree
+    visited = set([start])
+    edges = [
+        (cost, start, to)
+        for to, cost in graph[start].items()
+    ]
+    edges.sort()
+    while edges:
+        cost, frm, to = edges.pop(0)
+        if to not in visited:
+            visited.add(to)
+            mst.append((frm, to, cost))
+            for to_next, cost in graph[to].items():
+                if to_next not in visited:
+                    edges.append((cost, to, to_next))
+            edges.sort()
+    return mst
+
+# Get user input for the graph
+graph = {}
+num_nodes = int(input("Enter the number of nodes in the graph: "))
+for _ in range(num_nodes):
+    node = input("Enter the node: ")
+    num_edges = int(input("Enter the number of edges for node {}: ".format(node)))
+    edges = {}
+    for _ in range(num_edges):
+        neighbor, cost = input("Enter the neighbor and cost (separated by space) for node {}: ".format(node)).split()
+        edges[neighbor] = int(cost)
+    graph[node] = edges
+
+# Get user input for the starting node
+start_node = input("Enter the starting node: ")
+
+# Call the prim function with user input
+minimum_spanning_tree = prim(graph, start_node)
+print("Minimum Spanning Tree:")
+for edge in minimum_spanning_tree:
+    frm, to, cost = edge
+    print("{} -- {} --> {}: {}".format(frm, cost, to, cost))

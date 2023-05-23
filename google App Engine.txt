@@ -1,0 +1,15 @@
+1. sudo apt-get install apt-transport-https ca-certificates gnupg
+//installation
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+or
+echo "deb https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+2. curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+3. Update and Install gclooud CLI
+sudo apt-get update && sudo apt-get install google-cloud-cli
+
+
+
+CONFIGURATION
+1. gcloud init or gcloud init --console-only
+gcloud auth
+https://cloud.google.com/sdk/docs/install#linux

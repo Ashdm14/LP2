@@ -1,0 +1,115 @@
+def dijikstra(start_node, stop_node):
+         
+        open_set = set(start_node)     #A,B,E,C,G
+        closed_set = set()
+        g = {} 
+        parents = {}
+  
+        g[start_node] = 0
+        print(g)
+        parents[start_node] = start_node
+         
+         
+        while len(open_set) > 0:
+            n = None
+
+           
+            for v in open_set:
+                if n == None or g[v]  < g[n] :
+                    if n != None:
+                        print((g[v]<g[n]))
+                        print(g[v],g[n])
+                    n = v      
+
+
+            if n == stop_node or Graph_nodes[n] == None:
+                pass
+            else:
+                for (m, weight) in get_neighbors(n):
+                   
+                    if m not in open_set and m not in closed_set:
+                        open_set.add(m)
+                        parents[m] = n
+                        g[m] = g[n] + weight
+                        print(g[m])
+                        
+                    
+                    else:
+                        if g[m] > g[n] + weight:
+                            g[m] = g[n] + weight
+                            parents[m] = n      
+                             
+                           
+                            if m in closed_set:
+                                closed_set.remove(m)
+                                open_set.add(m)
+
+            if n == None:
+                print('Path does not exist!')
+                return None
+ 
+           
+            if n == stop_node:
+                path = []
+ 
+                while parents[n] != n:
+                    path.append(n)
+                    n = parents[n]
+ 
+                path.append(start_node)
+ 
+                path.reverse()
+ 
+                print('Path found: {}'.format(path))
+                return path
+ 
+ 
+            
+            open_set.remove(n)
+            closed_set.add(n)
+ 
+        print('Path does not exist!')
+        return None
+         
+
+def get_neighbors(v):
+    if v in Graph_nodes:
+        return Graph_nodes[v]
+    else:
+        return None
+
+Graph_nodes = {
+    'A': [('B', 2), ('E', 3)],
+    'B': [('C', 1),('G', 9)],
+    'C': None,
+    'E': [('D', 6)],
+    'D': [('G', 1)],
+
+}
+
+# n=int(input("Enter the Number of Node "))
+
+# for i in range(1,n+1):
+#     key=input("Enter the Key ")
+#     print("Key :",key)
+#     array=[]
+#     nA=int(input("Enter the number of Adjacent node for "+key))
+#     print("nA :",nA)
+#     if(nA==0):
+#         Graph_nodes[key]=None
+#     else:
+#         for j in range(1,nA+1):
+#             aK=input("Enter the Adjacent Key ")
+#             aV=int(input("Enter the Adjacent Key Weight "))
+#             t=(aK,aV)   
+#             array.append(t)
+#         print(array)
+#         Graph_nodes[key]=array
+#         print("Graph Nodes :",Graph_nodes)
+    
+#         array=[]
+        
+        
+# print(Graph_nodes)
+
+dijikstra('A', 'G')

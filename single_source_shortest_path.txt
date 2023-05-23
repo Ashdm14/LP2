@@ -1,0 +1,87 @@
+#include <iostream>
+
+using namespace std;
+#define I 456788
+
+int findminv(int distance[], bool visited[], int V)
+{
+    int minv = -1;
+    for (int i = 0; i < V; i++)
+    {
+        if (!visited[i] && (minv == -1 || distance[i] < minv))
+        {
+            minv = i;
+        }
+    }
+    return minv;
+}
+
+int main()
+{
+    int V, E;
+    cout << "Enter the number of vertices: ";
+    cin >> V;
+    cout << "Enter the number of edges: ";
+    cin >> E;
+
+    int edges[V][V];
+    for (int i = 0; i < V; i++)
+    {
+        for (int j = 0; j < V; j++)
+        {
+            edges[i][j] = 0;
+        }
+    }
+
+    cout << "Enter the edge information in the format (from to weight):" << endl;
+    for (int i = 0; i < E; i++)
+    {
+        int f, s, w;
+        cin >> f >> s >> w;
+        edges[f][s] = w;
+        edges[s][f] = w;
+    }
+
+    cout << endl;
+
+    int distance[V];
+    bool visited[V];
+
+    // Initialize distance and visited
+    for (int i = 0; i < V; i++)
+    {
+        distance[i] = I;
+        visited[i] = false;
+    }
+
+    distance[0] = 0;
+
+    for (int i = 0; i < V - 1; i++)
+    {
+        // Find the minimum vertex
+        int minv = findminv(distance, visited, V);
+
+        visited[minv] = true;
+
+        for (int j = 0; j < V; j++)
+        {
+            if (edges[minv][j] != 0 && !visited[j])
+            {
+                // Relaxation
+                int dist = distance[minv] + edges[minv][j];
+                if (dist < distance[j])
+                {
+                    distance[j] = dist;
+                }
+            }
+        }
+    }
+
+    cout << "Shortest distances from vertex 0:" << endl;
+    for (int i = 0; i < V; i++)
+    {
+        cout << "Vertex " << i << ": " << distance[i] << endl;
+    }
+
+    return 0;
+}
