@@ -1,0 +1,7 @@
+1. App manager
+2. New lightning app
+3. Give detail 
+4. Leave app options default 
+5.Leave utility items default 
+6. Add navigation items
+7. Select system administrator  on user profile
